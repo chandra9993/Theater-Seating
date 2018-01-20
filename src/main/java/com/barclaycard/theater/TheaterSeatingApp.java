@@ -1,5 +1,6 @@
 package com.barclaycard.theater;
 
+import java.util.List;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
@@ -15,10 +16,10 @@ public class TheaterSeatingApp {
 	public static void main(String[] args) {
 		LOGGER.info("Program Starting..");
 		Scanner scanner = new Scanner(System.in);
-		Theater theater=new Theater();
-		int[][] layoutArr=theater.getLayout(scanner);
-		String[][] requestsArr=theater.getRequests(scanner);
-		theater.parseOrder(requestsArr,layoutArr);	
+		TheaterHelper theater=new TheaterHelper();
+		List<Row> rowList=theater.getLayout(scanner);
+		List<Order> orders=theater.getOrders(scanner);
+		theater.parseOrder(rowList,orders);	
 		scanner.close();
 		LOGGER.info("Program Ended.");
 	}
