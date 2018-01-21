@@ -1,4 +1,4 @@
-package com.barclaycard.theater;
+package com.barclaycard.theater.model;
 
 import java.util.ArrayList;
 import java.util.List;
