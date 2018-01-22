@@ -1,17 +1,15 @@
-Hi There,
+1. Theater-Seating-0.0.1.RELEASE.jar file is the solution to Theater seating problem
+To run this app Please run below command from dist folder (Example:C:\Theater-Seating\dist\)
+java -jar Theater-Seating-0.0.1.RELEASE.jar
 
-Problem description:
+2. It will wait for the user to enter the input , Theater layout in the rows and sections format as shown in the sample input.
 
-You run a small theater and each month, you have patrons mail in requests for pre-sale tickets.  You need to process these ticket requests and either tell them where their party will sit or explain to the patron why you can't complete their order.
+                rows are separated by a new line and Sections separated by a space
 
-You have a few rules that you need to follow when you fill the orders:
-1.	Fill as many orders as possible
-2.	Put parties as close to the front as possible.
-3.	If there are not enough seats available in the theater to handle a party, tell them "Sorry, we can't handle your party."
-4.	Each party must sit in a single row in a single section.  If they won't fit, tell them "Call to split party".
+3. Leave and empty line and then enter the orders as shown in the sample           
 
-Your program must parse a theater layout and a list of ticket requests and produce a list of tickets or explanations in the same order as the requests.
+                Names followed by a space followed by no of seats requested
 
-The theater layout is made up of 1 or more rows.  Each row is made up of 1 or more sections separated by a space.
+4. Hit enter twice
 
-After the theater layout, there is one empty line, followed by 1 or more theater requests.  The theater request is made up of a name followed by a space and the number of requested tickets.
+5. Program will run and print the output

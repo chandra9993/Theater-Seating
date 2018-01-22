@@ -51,7 +51,7 @@ public class TheaterInputOutputService {
 			} catch (Exception exception) {
 				sectionList.clear();
 				orderList.clear();
-				LOGGER.info("Please enter valid input");
+				LOGGER.error("Please enter valid input");
 			}
 		}
 		scanner.close();
