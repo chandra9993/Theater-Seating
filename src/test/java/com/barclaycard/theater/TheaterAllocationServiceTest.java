@@ -15,10 +15,18 @@ import org.junit.Test;
 import com.barclaycard.theater.constants.OrderStatus;
 import com.barclaycard.theater.model.Order;
 import com.barclaycard.theater.model.Section;
-
+/***
+ * Class to represent TheaterAllocationService Tests
+ * @author hqcpundr
+ *
+ */
 public class TheaterAllocationServiceTest {
 	private List<Section> sections=new ArrayList<>();
 	private List<Order> orders=new ArrayList<>(); 
+	/***
+	 * Set up for Theater layout and Theator requests
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		Section section1= new Section(1, 1, 4);
@@ -36,6 +44,9 @@ public class TheaterAllocationServiceTest {
 		orders.add(order3);
 		orders.add(order4);
 	}
+	/***
+	 * to Test successful requests
+	 */
 	@Test
 	public void testSuccessfullRequest(){
 		TheaterAllocationService theaterAllocationService=new TheaterAllocationService();
@@ -50,6 +61,9 @@ public class TheaterAllocationServiceTest {
 		assertNotEquals(order.getOrderStatus(),OrderStatus.SPLIT_REQUESTED);
 		assertEquals(order.getOrderStatus(),OrderStatus.COMPLETED);
 	}
+	/**
+	 * TO test test Can not handled request
+	 */
 	@Test
 	public void testCanNotHandledRequest(){
 		TheaterAllocationService theaterAllocationService=new TheaterAllocationService();
@@ -59,6 +73,9 @@ public class TheaterAllocationServiceTest {
 		assertNotEquals(order.getOrderStatus(),OrderStatus.COMPLETED);
 		
 	}
+	/***
+	 * To test splitRequest
+	 */
 	@Test
 	public void testSplitRequest(){
 		TheaterAllocationService theaterAllocationService=new TheaterAllocationService();
@@ -69,6 +86,9 @@ public class TheaterAllocationServiceTest {
 		assertEquals(order.getOrderStatus(),OrderStatus.SPLIT_REQUESTED);
 		assertNotEquals(order.getOrderStatus(),OrderStatus.COMPLETED);
 	}
+	/***
+	 * TO test AssignOrder
+	 */
 	@Test
 	public void testAssignOrder(){
 		TheaterAllocationService theaterAllocationService=new TheaterAllocationService();
@@ -82,6 +102,9 @@ public class TheaterAllocationServiceTest {
 		assertEquals(section.getOrders().size(),1);
 	
 	}
+	/**
+	 * To test allocate seating
+	 */
 	@Test
 	public void testAllocateSeating() {
 		TheaterAllocationService theaterAllocationService=new TheaterAllocationService();

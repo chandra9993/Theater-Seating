@@ -1,7 +1,8 @@
 1. Theater-Seating-0.0.1.RELEASE.jar file is the solution to Theater seating problem
 To run this app Please run below command from dist folder (Example:C:\Theater-Seating\dist\)
 java -jar Theater-Seating-0.0.1.RELEASE.jar
-
+	or
+run com.barclaycard.theater.TheaterSeatingApp class	
 2. It will wait for the user to enter the input , Theater layout in the rows and sections format as shown in the sample input.
 
                 rows are separated by a new line and Sections separated by a space

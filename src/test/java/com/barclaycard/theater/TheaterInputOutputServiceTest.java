@@ -7,12 +7,16 @@ import org.junit.Test;
 
 import com.barclaycard.theater.model.Order;
 import com.barclaycard.theater.model.Section;
-
+/***
+ * Class to represent TheaterInputOutputServiceTest
+ * It test read sections and readorders
+ * @author hqcpundr
+ *
+ */
 public class TheaterInputOutputServiceTest {
-
-	@Before
-	public void setUp() throws Exception {
-	}
+	/***
+	 * To test read sections
+	 */
 	@Test
 	public void testReadSections() {
 		TheaterInputOutputService theaterInputOutputService=new TheaterInputOutputService();
@@ -26,6 +30,9 @@ public class TheaterInputOutputServiceTest {
 		Section section=new Section(5,1 , 6);
 		assertEquals(theaterInputOutputService.getSectionList().get(14),section);
 	}
+	/***
+	 * To test read orders
+	 */
 	@Test
 	public void testReadOrders() {
 		TheaterInputOutputService theaterInputOutputService=new TheaterInputOutputService();

@@ -16,22 +16,34 @@ import com.barclaycard.theater.model.Order;
 import com.barclaycard.theater.model.Section;
 
 /***
- * 
+ * This class represents the read input to read rows,sections and orders/requests and 
+ * print the orders/requests with status
  * @author hqcpundr
- *
  */
 public class TheaterInputOutputService {
-
+	/**
+	 * sectionList to hold sections 
+	 */
 	private List<Section> sectionList = new ArrayList<>();
+	/**
+	 * OrderList to hold orders/requests
+	 */
 	private List<Order> orderList = new ArrayList<>();
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(TheaterInputOutputService.class);
-
+	/***
+	 * Method readInput to read input and create list of section objects and 
+	 * list of order objects from user input for layout and requests
+	 * 
+	 */
 	public void readInput() {
+		//Scanner object creation to read console input read
 		Scanner scanner = new Scanner(System.in);
 		int emptyLineCount = 0;
 		int row = 1;
 		int orderId = 1;
+		//keep reading until more than one empty lines in the input
+		//theater layout input and theater requests separated by empty line
 		while (scanner.hasNextLine()) {
 			try {
 				String inputLine = scanner.nextLine();
@@ -44,11 +56,14 @@ public class TheaterInputOutputService {
 					}
 				}
 				if (emptyLineCount == 0) {
+					//to read sections from input line
 					readSections(inputLine, row++);
 				} else if (emptyLineCount == 1) {
+					//to read orders from input line
 					readOrders(inputLine, orderId++);
 				}
 			} catch (Exception exception) {
+				//clear the section and orders list incase if it finds any exception during input
 				sectionList.clear();
 				orderList.clear();
 				LOGGER.error("Please enter valid input");
@@ -61,7 +76,11 @@ public class TheaterInputOutputService {
 		}
 
 	}
-
+	/***
+	 * Method to read Layout Input  and create sections list from it
+	 * @param inputStr
+	 * @param rowNo
+	 */
 	public void readSections(String inputStr, int rowNo) {
 		String[] sections = inputStr.split(Constants.SINGLE_SPACE);
 		AtomicInteger secId = new AtomicInteger(1);
@@ -74,13 +93,19 @@ public class TheaterInputOutputService {
 				}).collect(Collectors.toList());
 		this.sectionList.addAll(secList);
 	}
-
+	/***
+	 * Method to read theater request and create orders list from it
+	 * @param inputLine
+	 * @param orderId
+	 */
 	public void readOrders(String inputLine, int orderId) {
 		this.orderList.add(new Order(orderId, inputLine
 				.split(Constants.SINGLE_SPACE)[0], Integer.parseInt(inputLine
 				.split(Constants.SINGLE_SPACE)[1])));
 	}
-
+	/***
+	 * Method to print out
+	 */
 	public void printOutput() {
 		orderList.forEach(k -> {
 			if (k.getOrderStatus() == OrderStatus.COMPLETED) {
@@ -93,19 +118,31 @@ public class TheaterInputOutputService {
 			}
 		});
 	}
-
+	/**
+	 * Method to get sections list
+	 * @return
+	 */
 	public List<Section> getSectionList() {
 		return sectionList;
 	}
-
+	/***
+	 * Method to set sections list
+	 * @param sectionList
+	 */
 	public void setSectionList(List<Section> sectionList) {
 		this.sectionList = sectionList;
 	}
-
+	/***
+	 * Method to get Orders List
+	 * @return
+	 */
 	public List<Order> getOrderList() {
 		return orderList;
 	}
-
+	/***
+	 * Method to set orders List
+	 * @param orderList
+	 */
 	public void setOrderList(List<Order> orderList) {
 		this.orderList = orderList;
 	}

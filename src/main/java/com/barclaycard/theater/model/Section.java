@@ -2,15 +2,41 @@ package com.barclaycard.theater.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/***
+ * Section class to represent section of each row
+ * It will maintain secId,rowId,initialCapacity and availCapacity
+ * and orders assigned to that session
+ * 
+ * @author hqcpundr
+ *
+ */
 public class Section {
-
+	/**
+	 * secId is unique number to identify each section
+	 */
 	private int secId;
+	/**
+	 * row id is unique number for each row
+	 */
 	private int rowId;
+	/**
+	 * initial capacity for each section
+	 */
 	private int initialCapacity;
+	/**
+	 * availCapacity for each section
+	 */
 	private int availCapacity;
+	/**
+	 * orders associated with each section
+	 */
 	private List<Order> orders = new ArrayList<>();
-
+	/***
+	 * Section constructor
+	 * @param rowId
+	 * @param secId
+	 * @param initialCapacity
+	 */
 	public Section(int rowId, int secId, int initialCapacity) {
 		this.rowId = rowId;
 		this.secId = secId;

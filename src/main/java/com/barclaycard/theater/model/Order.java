@@ -2,21 +2,54 @@ package com.barclaycard.theater.model;
 
 import com.barclaycard.theater.constants.OrderNote;
 import com.barclaycard.theater.constants.OrderStatus;
-
+/***
+ * Order class represents theater ticket request
+ * @author hqcpundr
+ *
+ */
 public class Order {
+	/**
+	 * Incremental id will be given for each order
+	 */
 	private int id;
+	/**
+	 * name of the requested person
+	 */
 	private String name;
+	/**
+	 * requested quantity
+	 */
 	private int qty;
+	/**
+	 * Section to assign this request
+	 */
 	private Section section;
+	/***
+	 * Initial order status is Requested
+	 */
 	private OrderStatus orderStatus= OrderStatus.REQUESTED;
+	/***
+	 * Order note if any 
+	 */
 	private OrderNote orderNote;
-
+	/***
+	 * Order constructor
+	 * @param id
+	 * @param name
+	 * @param qty
+	 */
 	public  Order(int id, String name, int qty){
 		this.id = id;
 		this.name = name;
 		this.qty = qty;
 	}
-	
+	/***
+	 * Order constructor
+	 * @param id
+	 * @param name
+	 * @param qty
+	 * @param orderStatus
+	 */
 	public  Order(int id, String name, int qty,OrderStatus orderStatus){
 		this.id = id;
 		this.name = name;
