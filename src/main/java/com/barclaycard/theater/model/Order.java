@@ -1,5 +1,6 @@
 package com.barclaycard.theater.model;
 
+import com.barclaycard.theater.constants.OrderNote;
 import com.barclaycard.theater.constants.OrderStatus;
 
 public class Order {
@@ -8,12 +9,19 @@ public class Order {
 	private int qty;
 	private Section section;
 	private OrderStatus orderStatus= OrderStatus.REQUESTED;
-	private String response;
+	private OrderNote orderNote;
 
 	public  Order(int id, String name, int qty){
 		this.id = id;
 		this.name = name;
 		this.qty = qty;
+	}
+	
+	public  Order(int id, String name, int qty,OrderStatus orderStatus){
+		this.id = id;
+		this.name = name;
+		this.qty = qty;
+		this.orderStatus=orderStatus;
 	}
 
 	public int getId() {
@@ -49,12 +57,12 @@ public class Order {
 		this.orderStatus = orderStatus;
 	}
 
-	public String getResponse() {
-		return response;
+	public OrderNote getOrderNote() {
+		return orderNote;
 	}
 
-	public void setResponse(String response) {
-		this.response = response;
+	public void setOrderNote(OrderNote orderNote) {
+		this.orderNote = orderNote;
 	}
 
 	@Override
@@ -65,7 +73,30 @@ public class Order {
 				", qty=" + qty +
 				", section=" + section +
 				", orderStatus=" + orderStatus +
-				", response='" + response + '\'' +
+				", response='" + orderNote + '\'' +
 				'}';
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Order other = (Order) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+	
 }

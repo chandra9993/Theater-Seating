@@ -67,4 +67,29 @@ public class Section {
 				", availCapacity=" + availCapacity +
 				'}';
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + rowId;
+		result = prime * result + secId;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Section other = (Section) obj;
+		if (rowId != other.rowId)
+			return false;
+		if (secId != other.secId)
+			return false;
+		return true;
+	}
 }

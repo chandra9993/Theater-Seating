@@ -24,96 +24,89 @@ public class TheaterInputOutputService {
 
 	private List<Section> sectionList = new ArrayList<>();
 	private List<Order> orderList = new ArrayList<>();
-	private static final Logger LOGGER=LoggerFactory.getLogger(TheaterInputOutputService.class);
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(TheaterInputOutputService.class);
 
-	public int calcTotalFree(){
-		return 	this.sectionList.stream().mapToInt(s->{return s.getAvailCapacity();}).sum();
-	}
-	public void readInput(){
+	public void readInput() {
 		Scanner scanner = new Scanner(System.in);
 		int emptyLineCount = 0;
 		int row = 1;
 		int orderId = 1;
-		while(scanner.hasNextLine()){
-			try{
+		while (scanner.hasNextLine()) {
+			try {
 				String inputLine = scanner.nextLine();
-				if(Constants.BLANK.equals(inputLine.trim())){
+				if (Constants.BLANK.equals(inputLine.trim())) {
 					emptyLineCount++;
-					if(emptyLineCount > 1){
-						//System.out.println(this.orderList);
-						//System.out.println(this.sectionList);
+					if (emptyLineCount > 1) {
 						break;
-					}
-					else {
+					} else {
 						continue;
 					}
 				}
-				if(emptyLineCount == 0){
-					readSections(inputLine,row++);
-				}else if (emptyLineCount == 1){
-					readInput(inputLine,orderId++);
+				if (emptyLineCount == 0) {
+					readSections(inputLine, row++);
+				} else if (emptyLineCount == 1) {
+					readOrders(inputLine, orderId++);
 				}
-			}catch(Exception exception){
+			} catch (Exception exception) {
 				sectionList.clear();
 				orderList.clear();
 				LOGGER.info("Please enter valid input");
 			}
 		}
 		scanner.close();
-		if (sectionList.size() == 0
-				|| orderList.size() == 0) {
-			System.out
-					.println("The input provides is invalid.\n Please Rerun the application with valid inputs");
+		if (sectionList.size() == 0 || orderList.size() == 0) {
+			LOGGER.info("The input provides is invalid.\n Please Rerun the application with valid inputs");
 			return;
 		}
-		
+
 	}
 
-	private void readSections(String inputStr, int rowNo){
+	public void readSections(String inputStr, int rowNo) {
 		String[] sections = inputStr.split(Constants.SINGLE_SPACE);
 		AtomicInteger secId = new AtomicInteger(1);
-		List<Section> secList = Arrays.stream(sections).map(s ->{
-			Section ss = new Section(rowNo,secId.getAndIncrement(),Integer.parseInt(s));
-			return ss;
-		}).collect(Collectors.toList());
+		List<Section> secList = Arrays
+				.stream(sections)
+				.map(s -> {
+					Section ss = new Section(rowNo, secId.getAndIncrement(),
+							Integer.parseInt(s));
+					return ss;
+				}).collect(Collectors.toList());
 		this.sectionList.addAll(secList);
 	}
 
-	private void readInput(String inputLine, int orderId){
-		this.orderList.add(new Order(orderId ,inputLine.split(Constants.SINGLE_SPACE)[0],Integer.parseInt(inputLine.split(" ")[1])));
+	public void readOrders(String inputLine, int orderId) {
+		this.orderList.add(new Order(orderId, inputLine
+				.split(Constants.SINGLE_SPACE)[0], Integer.parseInt(inputLine
+				.split(Constants.SINGLE_SPACE)[1])));
 	}
-	
+
+	public void printOutput() {
+		orderList.forEach(k -> {
+			if (k.getOrderStatus() == OrderStatus.COMPLETED) {
+				System.out.println(k.getName() + "  Row " + k.getSection().getRowId()
+						+ " Section " + k.getSection().getSecId());
+			} else if (k.getOrderStatus() == OrderStatus.SPLIT_REQUESTED) {
+				System.out.println(k.getName() + k.getOrderNote().getNote());
+			} else {
+				System.out.println(k.getName() + k.getOrderNote().getNote());
+			}
+		});
+	}
+
 	public List<Section> getSectionList() {
 		return sectionList;
 	}
+
 	public void setSectionList(List<Section> sectionList) {
 		this.sectionList = sectionList;
 	}
+
 	public List<Order> getOrderList() {
 		return orderList;
 	}
+
 	public void setOrderList(List<Order> orderList) {
 		this.orderList = orderList;
-	}
-	public void printOutput() {
-		//int totalFreeSeats = calcTotalFree();
-		orderList.forEach(
-				k -> {
-					if (k.getOrderStatus() == OrderStatus.COMPLETED) {
-						LOGGER.info(k.getName() + "  Row "
-								+ k.getSection().getRowId() + " Section "
-								+ k.getSection().getSecId());
-					} else if (k.getOrderStatus() == OrderStatus.SPLIT_REQUESTED
-							/*&& k.getQty() < totalFreeSeats*/) {
-						k.setResponse("Please Split your quantity");
-						//k.setOrderStatus(OrderStatus.SPLIT_REQUESTED);
-						LOGGER.info(k.getName() + " Call to split party.");
-					} else {
-						LOGGER.info(k.getName()
-								+ ", we can't handle your party.");
-					}
-				});
-		//System.out.println(orderList);
-
 	}
 }

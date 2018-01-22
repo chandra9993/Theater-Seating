@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.barclaycard.theater.constants.Constants;
+import com.barclaycard.theater.constants.OrderNote;
 import com.barclaycard.theater.constants.OrderStatus;
 import com.barclaycard.theater.model.Order;
 import com.barclaycard.theater.model.Section;
@@ -33,11 +34,13 @@ public class TheaterAllocationService {
     	int totalInitCapcity=sectionList.stream().mapToInt(Section::getInitialCapacity).sum();
     	if(order.getQty()>totalInitCapcity){
     		order.setOrderStatus(OrderStatus.CAN_NOT_HANDLE);
+    		order.setOrderNote(OrderNote.CAN_NOT_HANDLE);
     		return;
     	}
     	int maxInitCapcity=sectionList.stream().mapToInt(Section::getInitialCapacity).max().getAsInt();
     	if(order.getQty()>maxInitCapcity){
     		order.setOrderStatus(OrderStatus.SPLIT_REQUESTED);
+    		order.setOrderNote(OrderNote.SPLIT_PARTY);
     		return;
     	}
     	int qtyAvailRowId=1;
@@ -71,10 +74,15 @@ public class TheaterAllocationService {
     			}
     		}
     		int totalAvailCapcity=sectionList.stream().mapToInt(Section::getAvailCapacity).sum();
-        	if(!canReArrange&&order.getQty()<=totalAvailCapcity){
-        		order.setOrderStatus(OrderStatus.SPLIT_REQUESTED);
-        		return;
-        	}
+    		if(!canReArrange){
+    			if(order.getQty()<=totalAvailCapcity){
+    				order.setOrderStatus(OrderStatus.SPLIT_REQUESTED);
+    				order.setOrderNote(OrderNote.SPLIT_PARTY);
+    			}else{
+    				order.setOrderStatus(OrderStatus.CAN_NOT_HANDLE);
+    				order.setOrderNote(OrderNote.CAN_NOT_HANDLE);
+    			}
+    		}
     	}
     }
     /***
@@ -82,7 +90,7 @@ public class TheaterAllocationService {
      * @param section
      * @param order
      */
-    private void assignOrder(Section section, Order order) {
+    public void assignOrder(Section section, Order order) {
     	section.getOrders().add(order);
     	order.setSection(section);
     	section.setAvailCapacity(section.getAvailCapacity() - order.getQty());

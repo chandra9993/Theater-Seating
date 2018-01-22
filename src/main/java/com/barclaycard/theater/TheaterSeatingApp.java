@@ -14,7 +14,8 @@ public class TheaterSeatingApp {
 			.getLogger(TheaterSeatingApp.class);
 
 	public static void main(String[] args) {
-		LOGGER.info("Program Starting..");
+		LOGGER.info("Program started..");
+		System.out.println("Please enter input");
 		TheaterInputOutputService theaterInputOutputService = new TheaterInputOutputService();
 		theaterInputOutputService.readInput();
 		TheaterAllocationService theaterAllocationService=new TheaterAllocationService();
